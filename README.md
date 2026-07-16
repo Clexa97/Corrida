@@ -76,6 +76,7 @@ O navegador não controla os resultados no modo online. As funções PostgreSQL 
 - mudança de turno;
 - passagem pelos marcos 25, 50 e 75;
 - sorteio e aplicação de itens;
+- expiração de presentes após 60 segundos sem escolha;
 - dano ao adversário;
 - definição do vencedor.
 
@@ -88,6 +89,8 @@ As tabelas não permitem que jogadores alterem diretamente pontos, turnos ou pre
 - Clicar em **Sair da sala** remove explicitamente o próprio corredor.
 - O anfitrião pode remover participantes ou excluir a sala.
 - Quando o último corredor é removido, a sala é apagada automaticamente.
+- Presentes ofensivos aparecem somente para seu proprietário; se ele não escolher um alvo em 60 segundos, o presente é perdido e o turno avança.
+- Após a escolha do alvo, todas as telas exibem uma animação sincronizada com os possíveis presentes e revelam o ataque aplicado.
 
 ## Publicar no GitHub Pages
 

@@ -78,6 +78,14 @@ export async function useItem(roomCode, targetPlayerId) {
   return data;
 }
 
+export async function expirePendingItem(roomCode) {
+  const { data, error } = await supabase.rpc("expire_pending_item", {
+    p_room_code: roomCode
+  });
+  if (error) throw error;
+  return data;
+}
+
 export function subscribeToRoom(roomId, onChange) {
   const channel = supabase
     .channel(`room:${roomId}`)

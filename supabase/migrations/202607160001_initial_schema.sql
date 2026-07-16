@@ -11,6 +11,7 @@ create table public.rooms (
   status public.room_status not null default 'lobby',
   current_player_id uuid,
   pending_item jsonb,
+  last_event jsonb,
   winner_id uuid,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -135,7 +136,7 @@ begin
   delete from public.claimed_gifts where room_id = v_room.id;
   select id into v_first_player from public.players where room_id = v_room.id order by joined_at, id limit 1;
   update public.rooms set status = 'racing', current_player_id = v_first_player,
-    pending_item = null, winner_id = null where id = v_room.id returning * into v_room;
+    pending_item = null, last_event = null, winner_id = null where id = v_room.id returning * into v_room;
   return v_room;
 end;
 $$;
@@ -193,7 +194,8 @@ begin
           update public.players set score = v_new_score where id = v_player.id;
         else
           v_pending := jsonb_build_object('player_id', v_player.id, 'type', v_item,
-            'damage', v_damage, 'lap', v_lap, 'marker', v_marker);
+            'damage', v_damage, 'lap', v_lap, 'marker', v_marker,
+            'expires_at', now() + interval '1 minute');
         end if;
         exit;
       end if;
@@ -226,23 +228,50 @@ begin
   select * into v_room from public.rooms where code = upper(p_room_code) for update;
   if v_room.pending_item is null then raise exception 'Não há item pendente'; end if;
   select * into v_source from public.players where id = (v_room.pending_item->>'player_id')::uuid;
+  if now() >= (v_room.pending_item->>'expires_at')::timestamptz then
+    update public.rooms set pending_item = null,
+      current_player_id = public.next_player_id(v_room.id, v_source.id) where id = v_room.id;
+    return jsonb_build_object('expired', true);
+  end if;
   if auth.uid() not in (v_source.owner_id, v_room.owner_id) then raise exception 'Sem permissão para usar este item'; end if;
   select * into v_target from public.players where id = p_target_player_id and room_id = v_room.id for update;
   if v_target.id is null or v_target.id = v_source.id then raise exception 'Alvo inválido'; end if;
   v_damage := (v_room.pending_item->>'damage')::integer;
   update public.players set score = greatest(0, score - v_damage) where id = v_target.id;
   update public.rooms set pending_item = null,
-    current_player_id = public.next_player_id(v_room.id, v_source.id) where id = v_room.id;
+    current_player_id = public.next_player_id(v_room.id, v_source.id),
+    last_event = jsonb_build_object('id', gen_random_uuid(), 'type', v_room.pending_item->>'type',
+      'source_id', v_source.id, 'target_id', v_target.id, 'damage', v_damage, 'created_at', now())
+    where id = v_room.id;
   return jsonb_build_object('target_id', v_target.id, 'damage', v_damage);
+end;
+$$;
+
+create or replace function public.expire_pending_item(p_room_code text)
+returns boolean
+language plpgsql security definer set search_path = '' as $$
+declare
+  v_room public.rooms;
+  v_source_id uuid;
+begin
+  select * into v_room from public.rooms where code = upper(p_room_code) for update;
+  if v_room.id is null or v_room.pending_item is null then return false; end if;
+  if now() < (v_room.pending_item->>'expires_at')::timestamptz then return false; end if;
+  v_source_id := (v_room.pending_item->>'player_id')::uuid;
+  update public.rooms set pending_item = null,
+    current_player_id = public.next_player_id(v_room.id, v_source_id) where id = v_room.id;
+  return true;
 end;
 $$;
 
 revoke all on function public.start_race(text) from public, anon;
 revoke all on function public.roll_d20(text) from public, anon;
 revoke all on function public.use_pending_item(text, uuid) from public, anon;
+revoke all on function public.expire_pending_item(text) from public, anon;
 grant execute on function public.start_race(text) to authenticated;
 grant execute on function public.roll_d20(text) to authenticated;
 grant execute on function public.use_pending_item(text, uuid) to authenticated;
+grant execute on function public.expire_pending_item(text) to authenticated;
 
 create or replace function public.delete_empty_room_after_player_leave()
 returns trigger language plpgsql security definer set search_path = '' as $$
