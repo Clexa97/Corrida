@@ -35,8 +35,18 @@ export function playDiceRoll() {
 }
 
 export function playDiceResult(result) {
-  tone(280 + result * 18, .14, "square", .05);
-  tone(420 + result * 12, .2, "triangle", .04, .1);
+  const value = Math.max(1, Math.min(20, Number(result) || 1));
+  const intensity = (value - 1) / 19;
+  const volume = 0.012 + intensity * 0.052;
+  const duration = 0.08 + intensity * 0.24;
+  tone(190 + value * 15, duration, intensity > .65 ? "sawtooth" : "triangle", volume);
+  if (value >= 6) tone(300 + value * 17, duration * .9, "square", volume * .62, .07);
+  if (value >= 12) tone(105 + value * 4, duration * 1.4, "sawtooth", volume * .72, .02);
+  if (value >= 17) tone(520 + value * 20, duration * 1.2, "triangle", volume * .75, .15);
+  if (value === 20) {
+    tone(880, .42, "square", .055, .2);
+    tone(1320, .48, "triangle", .045, .28);
+  }
 }
 
 export function playGiftTick() { tone(420 + Math.random() * 220, .045, "square", .018); }
