@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07111f">
+  <title>D20 Racing — Corridas por voltas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600;700&family=Orbitron:wght@500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/rooms.css">
+  <link rel="stylesheet" href="assets/css/race-game.css">
+  <link rel="stylesheet" href="assets/css/permissions.css">
+  <link rel="stylesheet" href="assets/css/arcade.css">
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="topbar">
+    <button class="brand brand-button" id="homeButton" aria-label="Voltar ao dashboard"><span class="brand-mark">D20</span><span>RACING</span></button>
+    <div class="live-pill"><i></i> <span id="headerStatus">Dashboard</span></div>
+  </header>
+
+  <main>
+    <section id="dashboard" class="dashboard-page page">
+      <div class="dashboard-hero">
+        <div>
+          <div class="eyebrow"><span>01</span> CENTRAL DE CORRIDAS</div>
+          <h1>ESCOLHA SUA<br><em>PRÓXIMA PISTA.</em></h1>
+          <p>Crie uma corrida por voltas ou entre em uma sala usando o código do anfitrião.</p>
+        </div>
+        <div class="dashboard-actions">
+          <button class="primary-button" id="showCreateRoom">CRIAR NOVA SALA <span>＋</span></button>
+          <form id="joinRoomForm" class="code-form">
+            <label for="roomCodeInput">ENTRAR COM CÓDIGO</label>
+            <div><input id="roomCodeInput" maxlength="6" placeholder="EX: A7K2Q9" autocomplete="off" required><button type="submit">ENTRAR →</button></div>
+          </form>
+        </div>
+      </div>
+
+      <div class="rooms-area">
+        <div class="section-title compact-title">
+          <div><div class="eyebrow"><span>AO VIVO</span> SUAS SALAS</div><h2>DASHBOARD</h2></div>
+          <div class="pilot-count"><b id="roomCount">0</b><span>SALAS<br>CRIADAS</span></div>
+        </div>
+        <div id="roomsEmpty" class="empty-state"><span class="empty-die">20</span><p>Nenhuma sala criada neste navegador.</p></div>
+        <div id="roomsGrid" class="rooms-grid"></div>
+      </div>
+    </section>
+
+    <section id="createRoomPage" class="setup-page page" hidden>
+      <div class="setup-card">
+        <div class="eyebrow"><span>02</span> CONFIGURAR NOVA SALA</div>
+        <h2>PREPARE A CORRIDA</h2>
+        <form id="createRoomForm">
+          <label for="raceName">NOME DA CORRIDA</label>
+          <input id="raceName" maxlength="36" placeholder="Ex: Grande Prêmio da Firma" required>
+          <label for="lapCount">QUANTIDADE DE VOLTAS</label>
+          <div class="lap-quick" aria-label="Opções rápidas de voltas"><button type="button" data-laps="1">1 VOLTA</button><button type="button" data-laps="3" class="selected">3 VOLTAS</button><button type="button" data-laps="5">5 VOLTAS</button></div>
+          <div class="lap-picker">
+            <button type="button" data-step="-1">−</button><strong id="lapDisplay">3</strong><span>VOLTAS</span><button type="button" data-step="1">＋</button>
+          </div>
+          <button class="primary-button" type="submit">CRIAR SALA <span>→</span></button>
+        </form>
+      </div>
+    </section>
+
+    <section class="hero room-lobby page" id="lobby" hidden>
+      <div class="hero-copy">
+        <div class="eyebrow"><span>SALA <b id="roomCodeLabel">—</b></span> <span id="roleBadge" class="role-badge">VISITANTE</span> <button class="copy-code" id="copyCode">COPIAR CÓDIGO</button></div>
+        <div class="room-session-actions"><button id="leaveRoom" class="session-button" type="button">← SAIR DA SALA</button><button id="deleteRoom" class="session-button session-button--danger" type="button" hidden>EXCLUIR SALA</button></div>
+        <h1 id="roomRaceName">CORRIDA</h1>
+        <p><strong id="roomLaps">3 voltas</strong> · Cada resultado do d20 faz o piloto avançar. Complete todas as voltas antes dos rivais.</p>
+        <div class="rules"><div><b>1</b><span>Entre como<br>convidado</span></div><div><b>2</b><span>Role o dado<br>de 20 lados</span></div><div><b>3</b><span>Complete<br>as voltas</span></div></div>
+      </div>
+
+      <div class="join-card">
+        <div class="card-heading"><div><small>NOVO COMPETIDOR</small><h2>ENTRAR NO GRID</h2></div><span class="helmet">◉</span></div>
+        <form id="joinForm">
+          <label for="codename">CODINOME</label>
+          <div class="input-wrap"><input id="codename" maxlength="16" autocomplete="off" placeholder="Ex: Falcão Negro" required><span id="charCount">0/16</span></div>
+          <label>FOTO DO PILOTO</label>
+          <div class="photo-row">
+            <label class="photo-upload" id="photoDropzone" for="photoInput">
+              <input id="photoInput" type="file" accept="image/*" hidden>
+              <span id="photoPreview" class="photo-preview">+</span>
+              <span><b>CLIQUE OU ARRASTE A FOTO</b><small>JPG, PNG ou WEBP · até 4 MB</small></span>
+            </label>
+            <button class="avatar-button" id="randomAvatar" type="button" title="Gerar avatar">↻</button>
+          </div>
+          <button class="primary-button" type="submit">ADICIONAR AO GRID <span>→</span></button>
+        </form>
+        <div id="joinedMessage" class="joined-message" hidden><strong>✓ SEU CORREDOR ESTÁ NO GRID</strong><span>Você poderá lançar o dado quando chegar a sua vez.</span></div>
+        <p class="privacy">Sua foto permanece neste navegador.</p>
+      </div>
+    </section>
+
+    <section class="grid-section page" id="gridSection" hidden>
+      <div class="section-title"><div><div class="eyebrow"><span>03</span> PILOTOS CONFIRMADOS</div><h2>GRID DE LARGADA</h2></div><div class="pilot-count"><b id="pilotCount">0</b><span>PILOTOS<br>NA PISTA</span></div></div>
+      <div id="emptyState" class="empty-state"><span class="empty-die">20</span><p>O grid ainda está vazio.<br>Adicione pelo menos 2 pilotos para começar.</p></div>
+      <div id="pilotGrid" class="pilot-grid"></div>
+      <button id="startRace" class="start-button" disabled>PRECISA DE 2 PILOTOS</button>
+    </section>
+
+    <section id="raceSection" class="race-section page" hidden>
+      <div class="race-top"><div><div class="eyebrow"><span id="raceCode">—</span> CORRIDA EM ANDAMENTO</div><h2 id="activeRaceName">CORRIDA</h2></div><div class="race-actions"><button id="resetRace" class="ghost-button">↺ VOLTAR À SALA</button><button id="leaveRace" class="ghost-button ghost-button--danger">SAIR DA SALA</button></div></div>
+      <div class="lap-summary"><span id="raceLapSummary">3 VOLTAS</span><small>CADA VOLTA = 100 PONTOS</small></div>
+      <div class="track-head"><span>PISTA OVAL</span><span>LINHA DE CHEGADA 🏁</span></div>
+      <div id="raceTrack" class="race-track oval-track"></div>
+      <div class="control-panel"><div class="turn-info"><small>VEZ DE</small><strong id="currentPilot">—</strong><span id="turnPermission" class="turn-permission"></span></div><button id="rollButton" class="roll-button"><span class="mini-die">20</span> ROLAR O D20</button><div class="last-roll"><small>ÚLTIMA ROLAGEM</small><strong id="lastRoll">—</strong></div></div>
+    </section>
+  </main>
+
+  <div id="winnerModal" class="modal" hidden><div class="modal-card"><span class="trophy">🏆</span><small>CAMPEÃO DA PISTA</small><img id="winnerPhoto" alt="Foto do vencedor"><h2 id="winnerName">—</h2><p id="winnerStats"></p><button id="raceAgain" class="primary-button">CORRER NOVAMENTE <span>↻</span></button></div></div>
+  <div id="mysteryModal" class="modal mystery-modal" hidden><div class="modal-card mystery-card"><span class="gift-icon" id="giftIcon">🎁</span><small>CAIXA MISTERIOSA</small><h2 id="giftTitle">ITEM DISPONÍVEL!</h2><p id="giftDescription">A cada duas jogadas, a sorte traz uma surpresa.</p><button id="openGift" class="primary-button">ABRIR PRESENTE <span>?</span></button><div id="targetArea" hidden><label>ESCOLHA QUEM SERÁ ATINGIDO</label><div id="targetGrid" class="target-grid"></div></div></div></div>
+  <div id="toast" class="toast" role="status"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
