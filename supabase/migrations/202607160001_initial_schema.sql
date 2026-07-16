@@ -295,12 +295,12 @@ with check (bucket_id = 'avatars' and (storage.foldername(name))[1] = (select au
 
 create policy "users update their avatars"
 on storage.objects for update to authenticated
-using (bucket_id = 'avatars' and owner_id = (select auth.uid()))
-with check (bucket_id = 'avatars' and owner_id = (select auth.uid()));
+using (bucket_id = 'avatars' and owner_id = (select auth.uid())::text)
+with check (bucket_id = 'avatars' and owner_id = (select auth.uid())::text);
 
 create policy "users delete their avatars"
 on storage.objects for delete to authenticated
-using (bucket_id = 'avatars' and owner_id = (select auth.uid()));
+using (bucket_id = 'avatars' and owner_id = (select auth.uid())::text);
 
 alter publication supabase_realtime add table public.rooms;
 alter publication supabase_realtime add table public.players;
