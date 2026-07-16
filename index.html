@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="assets/css/racing-theme.css">
   <link rel="stylesheet" href="assets/css/turbo.css">
   <link rel="stylesheet" href="assets/css/chat-turn.css">
+  <link rel="stylesheet" href="assets/css/track-effects.css">
+  <link rel="stylesheet" href="assets/css/chat-ui.css">
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div>
@@ -113,7 +115,7 @@
       <div class="track-head"><span>PISTA OVAL</span><span>LINHA DE CHEGADA 🏁</span></div>
       <div id="raceTrack" class="race-track oval-track"></div>
       <div class="control-panel"><div class="turn-info"><small>VEZ DE</small><strong id="currentPilot">—</strong><span id="turnPermission" class="turn-permission"></span><button id="kickAbsentPilot" class="kick-absent-button" type="button" hidden>EXPULSAR PILOTO AUSENTE</button></div><button id="rollButton" class="roll-button"><span class="mini-die">20</span> ROLAR O D20</button><div class="last-roll"><small>ÚLTIMA ROLAGEM</small><strong id="lastRoll">—</strong></div></div>
-      <section class="race-chat" aria-label="Chat da corrida"><div class="race-chat-heading"><div><small>RÁDIO DA PISTA</small><strong>FALE PELO SEU CORREDOR</strong></div><span>Balões somem em 20s</span></div><form id="chatForm" class="race-chat-form"><select id="chatPilot" aria-label="Corredor que vai falar" required></select><select id="chatEmote" aria-label="Emote"><option value="none">Sem emote</option><option value="wave">👋 Oi</option><option value="laugh">😂 Risada</option><option value="fire">🔥 Fogo</option><option value="wow">😮 Uau</option><option value="gg">🏁 GG</option><option value="sad">😢 Triste</option><option value="angry">😡 Bravo</option></select><div class="chat-message-wrap"><input id="chatMessage" maxlength="120" placeholder="Mensagem ou apenas um emote..."><span id="chatCharCount">0/120</span></div><button type="submit">ENVIAR</button></form><p id="chatUnavailable" class="chat-unavailable" hidden>Crie um corredor para usar o rádio da pista.</p></section>
+      <section class="race-chat" aria-label="Chat da corrida"><div class="race-chat-heading"><div><small>RÁDIO DA PISTA</small><strong>CHAT DOS PILOTOS</strong></div><span>20s</span></div><div class="chat-feed-wrap"><p id="chatEmpty" class="chat-empty">Nenhuma mensagem na pista.</p><div id="chatFeed" class="chat-feed" aria-live="polite"></div></div><form id="chatForm" class="race-chat-form" autocomplete="off"><select id="chatPilot" aria-label="Corredor que vai falar" required></select><select id="chatEmote" aria-label="Emote"><option value="none">Sem emote</option><option value="wave">👋</option><option value="laugh">😂</option><option value="fire">🔥</option><option value="wow">😮</option><option value="gg">🏁</option><option value="sad">😢</option><option value="angry">😡</option></select><div class="chat-message-wrap"><input id="chatMessage" maxlength="120" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Escreva como seu corredor..."><span id="chatCharCount">0/120</span></div><button type="submit" aria-label="Enviar mensagem">➤</button></form><p id="chatUnavailable" class="chat-unavailable" hidden>Crie um corredor para usar o chat.</p></section>
     </section>
   </main>
 

@@ -1,0 +1,37 @@
+.race-chat {
+  width: min(720px, 100%);
+  margin: 18px auto 0;
+  padding: 12px;
+  border-radius: 12px;
+  background: #10161d;
+  box-shadow: 0 8px 22px #0005;
+}
+
+.race-chat-heading {margin-bottom:8px;align-items:center}
+.race-chat-heading strong {font-size:11px}
+.race-chat-heading > span {display:grid;place-items:center;width:31px;height:22px;border-radius:10px;background:#26313b;color:#aab6c2}
+.chat-feed-wrap {position:relative;min-height:66px;margin-bottom:8px;border:1px solid #303b46;border-radius:9px;background:#090d12;overflow:hidden}
+.chat-feed {display:flex;flex-direction:column;gap:6px;max-height:132px;padding:8px;overflow-y:auto;scrollbar-width:thin}
+.chat-empty {position:absolute;inset:0;display:grid;place-items:center;margin:0;color:#647180;font-size:10px;pointer-events:none}
+.chat-empty[hidden] {display:none}
+.chat-line {display:flex;gap:7px;align-items:flex-start;animation:chatLineIn .2s ease}
+.chat-line img {width:28px;height:28px;flex:none;border:2px solid #53606c;border-radius:50%;object-fit:cover}
+.chat-line div {min-width:0;max-width:82%;padding:5px 8px;border-radius:2px 9px 9px 9px;background:#202a34}
+.chat-line strong {display:block;margin-bottom:2px;color:#ff7a45;font:700 8px "Orbitron",sans-serif;text-transform:uppercase}
+.chat-line p {margin:0;color:#f4f6f8;font-size:10px;line-height:1.3;overflow-wrap:anywhere}
+.chat-line p b {margin-right:4px;font-size:14px}
+.race-chat-form {grid-template-columns:130px 58px 1fr 42px;gap:6px}
+.race-chat-form select,.race-chat-form input,.race-chat-form button {min-height:36px;border-radius:7px;padding:0 8px}
+.race-chat-form button {font-size:16px}
+.chat-message-wrap span {top:11px}
+
+.oval-racer.is-kickable {z-index:8;cursor:pointer}
+.oval-racer.is-kickable img {box-shadow:0 0 0 4px #ff315f,0 0 22px #ff315f;animation:kickablePulse 1s ease-in-out infinite}
+.admin-pilot-panel {position:absolute;z-index:13;left:50%;top:50%;width:min(270px,48%);transform:translate(-50%,-50%);padding:16px;text-align:center;border:2px solid #ff315f;border-radius:14px;background:#111820f5;color:#fff;box-shadow:0 0 0 5px #090c10,0 0 30px #ff315f66;animation:trackGiftEnter .25s ease}
+.admin-pilot-panel img {width:58px;height:58px;border:3px solid #ff315f;border-radius:50%;object-fit:cover}
+.admin-pilot-panel small,.admin-pilot-panel strong {display:block}.admin-pilot-panel small{margin-top:7px;color:#ff7996;font:700 8px "Orbitron"}.admin-pilot-panel strong{margin-top:4px;font:800 15px "Orbitron"}.admin-pilot-panel p{font-size:10px;color:#aeb8c2}.admin-pilot-panel div{display:grid;grid-template-columns:1fr 1fr;gap:7px}.admin-pilot-panel button{padding:9px;border:1px solid #4c5864;background:transparent;color:#fff;font:700 8px "Orbitron";cursor:pointer}.admin-pilot-panel button[data-action="kick"]{border-color:#ff315f;background:#b91c36}
+
+@keyframes chatLineIn{from{opacity:0;transform:translateY(4px)}}
+@keyframes kickablePulse{50%{transform:scale(1.08);filter:saturate(1.5)}}
+
+@media(max-width:650px){.race-chat-form{grid-template-columns:1fr 54px}.race-chat-form .chat-message-wrap{grid-column:1/-1}.race-chat-form button{grid-column:1/-1}.admin-pilot-panel{width:65%}}

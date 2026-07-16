@@ -72,6 +72,12 @@ export function playChatBubble() {
   tone(840, .11, "sine", .015, .065);
 }
 
+export function playNegativeMove() {
+  tone(260, .12, "sawtooth", .028);
+  tone(170, .2, "sawtooth", .032, .09);
+  tone(95, .26, "square", .018, .18);
+}
+
 export function toggleAudio() {
   muted = !muted;
   if (!muted) unlockAudio();

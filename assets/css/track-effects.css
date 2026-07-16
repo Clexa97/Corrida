@@ -1,0 +1,78 @@
+.race-track.oval-track {
+  background-image:
+    repeating-radial-gradient(ellipse at center, transparent 0 18%, rgba(255,255,255,.035) 18.4% 19%, transparent 19.4% 23%),
+    repeating-linear-gradient(105deg, rgba(255,255,255,.025) 0 3px, transparent 3px 22px);
+  overflow: visible;
+}
+
+.oval-racer::after {
+  content: "";
+  position: absolute;
+  width: 42px;
+  height: 8px;
+  left: -28px;
+  top: 23px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, transparent, var(--racer-color));
+  opacity: 0;
+  pointer-events: none;
+}
+
+.oval-racer.is-advancing::after {
+  animation: racerTrail .75s ease-out;
+}
+
+.oval-racer.is-advancing img {
+  animation: racerBoost .75s ease;
+}
+
+.oval-racer.is-retreating img,
+.oval-racer.is-retreating .racer-info {
+  animation: racerDamage .58s ease;
+}
+
+.oval-racer.is-targetable {
+  z-index: 7;
+  cursor: crosshair;
+}
+
+.oval-racer.is-targetable img {
+  animation: targetPulse .85s ease-in-out infinite;
+}
+
+.oval-racer.is-selected-target img {
+  border-color: #ff315f;
+  box-shadow: 0 0 0 5px #fff, 0 0 26px 10px #ff315f;
+}
+
+.track-gift-panel {
+  position: absolute;
+  z-index: 12;
+  left: 50%;
+  top: 50%;
+  width: min(290px, 48%);
+  transform: translate(-50%, -50%);
+  padding: 18px;
+  text-align: center;
+  color: #fff;
+  border: 2px solid #ffe600;
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(20,27,35,.97), rgba(5,9,14,.97));
+  box-shadow: 0 0 0 5px #111, 0 0 35px #ffe60066;
+  animation: trackGiftEnter .35s ease;
+}
+
+.track-gift-panel .track-gift-icon {display:block;font-size:52px;filter:drop-shadow(0 0 12px #ffe600);animation:giftBounce 1s infinite}
+.track-gift-panel small {display:block;margin:4px 0;color:#ffe600;font:700 8px "Orbitron",sans-serif;letter-spacing:1.4px}
+.track-gift-panel strong {display:block;font:800 16px "Orbitron",sans-serif}
+.track-gift-panel p {min-height:30px;margin:9px 0;font-size:11px;color:#cbd5df}
+.track-gift-panel button {width:100%;padding:10px;border:0;background:#ff5a1f;color:#fff;font:700 9px "Orbitron",sans-serif;cursor:pointer}
+.track-gift-panel button:disabled {background:#47515c;color:#9ba5ae;cursor:not-allowed}
+
+@keyframes racerTrail {0%{opacity:.9;transform:scaleX(.3)}100%{opacity:0;transform:translateX(-28px) scaleX(1.5)}}
+@keyframes racerBoost {35%{transform:scale(1.18) rotate(5deg)}70%{transform:scale(.96) rotate(-2deg)}}
+@keyframes racerDamage {20%,60%{transform:translateX(-7px) rotate(-7deg);filter:grayscale(.8)}40%,80%{transform:translateX(6px) rotate(6deg)}}
+@keyframes targetPulse {50%{transform:scale(1.13);box-shadow:0 0 22px #ffe600}}
+@keyframes trackGiftEnter {from{opacity:0;transform:translate(-50%,-50%) scale(.8)}}
+
+@media(max-width:650px){.track-gift-panel{width:62%;padding:12px}.track-gift-panel .track-gift-icon{font-size:38px}.track-gift-panel strong{font-size:11px}.track-gift-panel p{font-size:9px}}
