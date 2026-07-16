@@ -78,6 +78,10 @@ export function playNegativeMove() {
   tone(95, .26, "square", .018, .18);
 }
 
+export function playTurboMove() {
+  [330, 440, 660, 880, 1100].forEach((frequency, index) => tone(frequency, .2 + index * .025, index < 2 ? "sawtooth" : "triangle", .028, index * .075));
+}
+
 export function toggleAudio() {
   muted = !muted;
   if (!muted) unlockAudio();

@@ -1,0 +1,40 @@
+.race-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 230px;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.race-roster {
+  min-height: 350px;
+  padding: 14px;
+  border: 1px solid #46515c;
+  border-top: 4px solid #ff5a1f;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #202830, #0c1117);
+  box-shadow: 0 12px 28px #0006;
+}
+
+.race-roster-title {padding-bottom:10px;border-bottom:1px solid #3b4650}
+.race-roster-title small,.race-roster-title strong {display:block}
+.race-roster-title small {color:#ff7a45;font:700 7px "Orbitron",sans-serif;letter-spacing:1.3px}
+.race-roster-title strong {margin-top:3px;font:800 12px "Orbitron",sans-serif}
+.race-roster-list {display:flex;flex-direction:column;gap:7px;margin-top:11px;max-height:500px;overflow-y:auto}
+.roster-pilot {display:grid;grid-template-columns:20px 34px minmax(0,1fr) 27px;gap:7px;align-items:center;padding:7px;border:1px solid #303a44;border-radius:8px;background:#111820;transition:.2s}
+.roster-pilot.is-current {border-color:#ffe600;box-shadow:inset 3px 0 #ffe600}
+.roster-pilot>span {color:#65717d;font:800 9px "Orbitron"}
+.roster-pilot img {width:34px;height:34px;border:2px solid #576470;border-radius:50%;object-fit:cover}
+.roster-pilot div {min-width:0}.roster-pilot strong,.roster-pilot small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.roster-pilot strong{font:700 8px "Orbitron"}.roster-pilot small{margin-top:3px;color:#87939f;font-size:7px}
+.roster-pilot button {width:27px;height:27px;border:1px solid #ff5277;border-radius:6px;background:transparent;color:#ff7996;font-size:16px;cursor:pointer}
+.roster-pilot button:disabled {border-color:#3e4852;color:#56616b;cursor:not-allowed}
+
+.oval-racer.is-turbo-moving {z-index:10}
+.oval-racer.is-turbo-moving img {animation:turboRacer 1.1s ease;box-shadow:0 0 0 5px #38bdf8,0 0 32px 14px #38bdf8}
+.oval-racer.is-turbo-moving::before {content:"✦ ✧ ✦";position:absolute;left:-64px;top:-12px;color:#ffe600;font-size:25px;white-space:nowrap;filter:drop-shadow(0 0 8px #ff5a1f);animation:turboSparks 1.1s ease-out}
+.oval-racer.is-turbo-moving::after {height:14px;width:80px;opacity:1;background:linear-gradient(90deg,transparent,#ff5a1f,#ffe600,#38bdf8);animation:turboFlame 1.1s ease-out}
+
+@keyframes turboRacer {0%{transform:scale(.82)}30%{transform:scale(1.32) rotate(8deg)}65%{transform:scale(1.08) rotate(-4deg)}100%{transform:scale(1)}}
+@keyframes turboSparks {from{opacity:1;transform:translateX(45px) scale(.4)}to{opacity:0;transform:translateX(-50px) scale(1.4)}}
+@keyframes turboFlame {from{transform:translateX(45px) scaleX(.25)}to{opacity:0;transform:translateX(-55px) scaleX(1.5)}}
+
+@media(max-width:950px){.race-stage{grid-template-columns:1fr}.race-roster{min-height:0}.race-roster-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));max-height:none}}
