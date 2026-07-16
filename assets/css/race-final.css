@@ -21,13 +21,6 @@
 .race-stage > .race-chat .chat-message-wrap {grid-column:1/-1}
 .race-stage > .race-chat .race-chat-form button {grid-column:1/-1}
 
-.track-shell {position:relative;min-width:0}
-.track-shell .oval-track {width:100%}
-.track-dice-control {position:absolute;inset:0;z-index:7;display:grid;place-items:center;pointer-events:none}
-.track-dice-control[hidden] {display:none}
-.track-dice-control .roll-button {width:min(250px,48%);margin-top:86px;pointer-events:auto;box-shadow:0 8px 28px #0008,0 0 24px #00e5ff33}
-.control-panel {grid-template-columns:minmax(0,1fr) auto}
-.last-roll {justify-self:end}
 
 .race-roster {
   min-height: 350px;
@@ -88,4 +81,4 @@
 .race-chat input,.race-chat select {font-size:14px}
 
 @media(max-width:1100px){.race-stage{grid-template-columns:1fr 220px}.race-stage>.race-chat{grid-column:1/-1;grid-row:2;min-height:320px}.race-stage>.race-chat .chat-feed{min-height:190px;max-height:240px}.race-stage>.race-chat .race-chat-form{grid-template-columns:130px 48px 1fr 42px}.race-stage>.race-chat .chat-message-wrap,.race-stage>.race-chat .race-chat-form button{grid-column:auto}}
-@media(max-width:760px){.race-stage{grid-template-columns:1fr;gap:14px}.race-roster{min-height:0}.race-roster-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));max-height:none}.race-stage>.race-chat{grid-column:auto;grid-row:auto;min-height:340px}.race-stage>.race-chat .chat-feed{min-height:210px;max-height:260px}.track-dice-control .roll-button{width:min(230px,68%);margin-top:70px}.control-panel{grid-template-columns:1fr}.last-roll{justify-self:stretch}}
+@media(max-width:760px){.race-stage{grid-template-columns:1fr;gap:14px}.race-roster{min-height:0}.race-roster-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));max-height:none}.race-stage>.race-chat{grid-column:auto;grid-row:auto;min-height:340px}.race-stage>.race-chat .chat-feed{min-height:210px;max-height:260px}}
