@@ -40,6 +40,10 @@
 .room-code-display {width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;border:0;background:transparent;color:#fff;cursor:pointer;text-align:left}
 .room-code-display strong {font:800 clamp(28px,5vw,48px)/1 "Orbitron";letter-spacing:8px}
 .room-code-display span {color:#9aa7b3;font:700 7px "Orbitron";letter-spacing:1px}
+.room-share-actions {display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}
+.room-share-actions button {padding:10px;border:1px solid #56616c;background:#18222c;color:#fff;font:700 8px "Orbitron";cursor:pointer}
+.room-share-actions button:first-child {border-color:#ffe600;color:#ffe600}
+.race-actions[hidden]{display:none}
 .finished-race-actions {display:grid;gap:6px;margin-top:10px}
 .finished-race-actions[hidden]{display:none}
 .finished-race-actions button {padding:9px;border:1px solid #56616c;background:#111820;color:#fff;font:700 8px "Orbitron";cursor:pointer}
