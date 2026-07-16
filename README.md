@@ -93,6 +93,7 @@ As tabelas não permitem que jogadores alterem diretamente pontos, turnos ou pre
 - Após a escolha do alvo, todas as telas exibem uma animação sincronizada com os possíveis presentes e revelam o ataque aplicado.
 - A revelação pública mostra foto e nome do atacante e do corredor atingido.
 - Ao final, visitantes podem voltar ao lobby ou sair; somente o anfitrião pode iniciar uma nova corrida.
+- O d20 possui animação e efeitos sonoros; presentes e vitória usam sons sintetizados pelo navegador, com controle para silenciar.
 
 ## Publicar no GitHub Pages
 
