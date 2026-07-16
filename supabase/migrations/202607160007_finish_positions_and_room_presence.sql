@@ -130,6 +130,10 @@ begin
       v_pending := jsonb_build_object('player_id', v_player.id, 'type', v_item,
         'damage', v_damage, 'lap', v_lap, 'marker', v_marker,
         'expires_at', now() + interval '1 minute');
+    else
+      v_event := jsonb_build_object('id', gen_random_uuid(), 'type', 'no_target',
+        'item_type', v_item, 'source_id', v_player.id, 'damage', v_damage,
+        'lap', v_lap, 'marker', v_marker, 'created_at', now());
     end if;
   end loop;
 

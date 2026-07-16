@@ -35,6 +35,15 @@
 .race-roster-title small,.race-roster-title strong {display:block}
 .race-roster-title small {color:#ff7a45;font:700 7px "Orbitron",sans-serif;letter-spacing:1.3px}
 .race-roster-title strong {margin-top:3px;font:800 12px "Orbitron",sans-serif}
+.room-code-hero {width:min(420px,100%);margin:0 0 22px;padding:10px;border-left:5px solid #ffe600;background:#101820;box-shadow:7px 7px 0 #050608}
+.room-code-hero>small {display:block;margin:0 0 6px;color:#ffe600;font:700 8px "Orbitron";letter-spacing:1.5px}
+.room-code-display {width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;border:0;background:transparent;color:#fff;cursor:pointer;text-align:left}
+.room-code-display strong {font:800 clamp(28px,5vw,48px)/1 "Orbitron";letter-spacing:8px}
+.room-code-display span {color:#9aa7b3;font:700 7px "Orbitron";letter-spacing:1px}
+.finished-race-actions {display:grid;gap:6px;margin-top:10px}
+.finished-race-actions[hidden]{display:none}
+.finished-race-actions button {padding:9px;border:1px solid #56616c;background:#111820;color:#fff;font:700 8px "Orbitron";cursor:pointer}
+.finished-race-actions button:last-child {border-color:#ffe600;background:#665407;color:#fff}
 .race-roster-list {display:flex;flex-direction:column;gap:7px;margin-top:11px;max-height:500px;overflow-y:auto}
 .roster-pilot {display:grid;grid-template-columns:20px 34px minmax(0,1fr) 27px;gap:7px;align-items:center;padding:7px;border:1px solid #303a44;border-radius:8px;background:#111820;transition:.2s}
 .roster-pilot.is-current {border-color:#ffe600;box-shadow:inset 3px 0 #ffe600}

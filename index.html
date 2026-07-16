@@ -76,7 +76,8 @@
     <section class="hero room-lobby page" id="lobby" hidden>
       <div class="room-toolbar"><span>CONTROLES DA SALA</span><div class="room-session-actions"><button id="leaveRoom" class="session-button" type="button">← SAIR DA SALA</button><button id="deleteRoom" class="session-button session-button--danger" type="button" hidden>EXCLUIR SALA</button></div></div>
       <div class="hero-copy">
-        <div class="eyebrow"><span>SALA <b id="roomCodeLabel">—</b></span> <span id="roleBadge" class="role-badge">VISITANTE</span> <button class="copy-code" id="copyCode">COPIAR CÓDIGO</button></div>
+        <div class="room-code-hero"><small>CÓDIGO PARA ENTRAR</small><button id="copyCode" class="room-code-display" type="button"><strong id="roomCodeLabel">—</strong><span>CLIQUE PARA COPIAR</span></button></div>
+        <div class="eyebrow"><span id="roleBadge" class="role-badge">VISITANTE</span></div>
         <h1 id="roomRaceName">CORRIDA</h1>
         <p><strong id="roomLaps">3 voltas</strong> · Cada resultado do d20 faz o piloto avançar. Complete todas as voltas antes dos rivais.</p>
         <div class="rules"><div><b>1</b><span>Entre como<br>convidado</span></div><div><b>2</b><span>Role o dado<br>de 20 lados</span></div><div><b>3</b><span>Complete<br>as voltas</span></div></div>
@@ -117,7 +118,7 @@
       <div class="race-stage">
         <section class="race-chat" aria-label="Chat da corrida"><div class="race-chat-heading"><div><small>RÁDIO DA PISTA</small><strong>CHAT DOS PILOTOS</strong></div><span>20s</span></div><div class="chat-feed-wrap"><p id="chatEmpty" class="chat-empty">Nenhuma mensagem na pista.</p><div id="chatFeed" class="chat-feed" aria-live="polite"></div></div><form id="chatForm" class="race-chat-form" autocomplete="off"><select id="chatPilot" aria-label="Corredor que vai falar" required></select><select id="chatEmote" aria-label="Abrir menu de emojis" title="Emojis"><option value="none">🙂</option><option value="wave">👋</option><option value="laugh">😂</option><option value="fire">🔥</option><option value="wow">😮</option><option value="gg">🏁</option><option value="sad">😢</option><option value="angry">😡</option></select><div class="chat-message-wrap"><input id="chatMessage" maxlength="120" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Mensagem..."><span id="chatCharCount">0/120</span></div><button type="submit" aria-label="Enviar mensagem">➤</button></form><p id="chatUnavailable" class="chat-unavailable" hidden>Crie um corredor para usar o chat.</p></section>
         <div id="raceTrack" class="race-track oval-track"></div>
-        <aside class="race-roster"><div class="race-roster-title"><small>CLASSIFICAÇÃO</small><strong>CORREDORES</strong></div><div id="raceRosterList" class="race-roster-list"></div></aside>
+        <aside class="race-roster"><div class="race-roster-title"><small>CLASSIFICAÇÃO</small><strong>CORREDORES</strong><div id="finishedRaceActions" class="finished-race-actions" hidden><button id="finishedLobbyButton" type="button">VOLTAR AO LOBBY</button><button id="finishedRestartButton" type="button" hidden>NOVA CORRIDA</button></div></div><div id="raceRosterList" class="race-roster-list"></div></aside>
       </div>
       <div class="control-panel"><div class="turn-info"><small>VEZ DE</small><strong id="currentPilot">—</strong><span id="turnPermission" class="turn-permission"></span><button id="kickAbsentPilot" class="kick-absent-button" type="button" hidden>EXPULSAR PILOTO AUSENTE</button></div><button id="rollButton" class="roll-button"><span class="mini-die">20</span> ROLAR O D20</button><div class="last-roll"><small>ÚLTIMA ROLAGEM</small><strong id="lastRoll">—</strong></div></div>
     </section>
