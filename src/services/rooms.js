@@ -38,10 +38,16 @@ export async function createRoom({ name, laps, maxPlayersPerUser = 1 }) {
   throw new Error("Não foi possível gerar um código único para a sala.");
 }
 
-export async function addPlayer({ id, roomId, codename, avatarUrl }) {
+export async function addPlayer({ id, roomId, codename, avatarUrl, spectatorOnly = false }) {
   const { data, error } = await supabase
     .from("players")
-    .insert({ id, room_id: roomId, codename, avatar_url: avatarUrl })
+    .insert({
+      id,
+      room_id: roomId,
+      codename,
+      avatar_url: avatarUrl,
+      spectator_only: spectatorOnly
+    })
     .select()
     .single();
   if (error) throw error;

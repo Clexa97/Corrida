@@ -85,6 +85,7 @@
 
       <div class="join-card">
         <div class="card-heading"><div><small>NOVO COMPETIDOR</small><h2>ENTRAR NO GRID</h2></div><span class="helmet">◉</span></div>
+        <div id="joinModePicker" class="join-mode-picker"><button type="button" data-join-mode="racer" class="selected">🏎 CORREDOR</button><button type="button" data-join-mode="spectator">👁 ESPECTADOR</button></div>
         <form id="joinForm">
           <label for="codename">CODINOME</label>
           <div class="input-wrap"><input id="codename" maxlength="16" autocomplete="off" placeholder="Ex: Falcão Negro" required><span id="charCount">0/16</span></div>
@@ -97,10 +98,8 @@
             </label>
             <button class="avatar-button" id="randomAvatar" type="button" title="Gerar avatar">↻</button>
           </div>
-          <button class="primary-button" type="submit">ADICIONAR AO GRID <span>→</span></button>
+          <button id="joinSubmitButton" class="primary-button" type="submit">ADICIONAR AO GRID <span>→</span></button>
         </form>
-        <button id="watchAsSpectator" class="spectator-button" type="button">👁 ASSISTIR APENAS COMO ESPECTADOR</button>
-        <div id="spectatorMessage" class="spectator-message" hidden><strong>👁 VOCÊ ESTÁ COMO ESPECTADOR</strong><span>Você pode acompanhar a corrida sem entrar no grid.</span><button id="createPilotInstead" type="button">CRIAR UM CORREDOR</button></div>
         <div id="joinedMessage" class="joined-message" hidden><strong>✓ SEU CORREDOR ESTÁ NO GRID</strong><span>Você poderá lançar o dado quando chegar a sua vez.</span></div>
         <p class="privacy">Sua foto permanece neste navegador.</p>
       </div>
@@ -114,7 +113,7 @@
     </section>
 
     <section id="raceSection" class="race-section page" hidden>
-      <div class="race-top"><div><div class="eyebrow"><span id="raceCode">—</span> CORRIDA EM ANDAMENTO</div><h2 id="activeRaceName">CORRIDA</h2></div><div id="raceActions" class="race-actions"><button id="leaveRace" class="ghost-button ghost-button--danger">SAIR DA SALA</button></div></div>
+      <div class="race-top"><div><div class="eyebrow"><span id="raceCode">—</span> CORRIDA EM ANDAMENTO</div><h2 id="activeRaceName">CORRIDA</h2></div><div id="raceActions" class="race-actions"><button id="hostBackToLobby" class="ghost-button" hidden>VOLTAR AO LOBBY</button><button id="leaveRace" class="ghost-button ghost-button--danger">SAIR DA SALA</button></div></div>
       <div class="lap-summary"><span id="raceLapSummary">3 VOLTAS</span><small>CADA VOLTA = 100 PONTOS</small></div>
       <div class="track-head"><span>PISTA OVAL</span><span>LINHA DE CHEGADA 🏁</span></div>
       <div class="race-stage">
