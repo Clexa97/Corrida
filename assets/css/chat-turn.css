@@ -1,0 +1,27 @@
+.racer-chat-bubble {
+  animation: none;
+}
+
+.racer-chat-bubble.is-new {
+  animation: chatPop .25s ease;
+}
+
+.kick-absent-button {
+  display: block;
+  margin-top: 9px;
+  padding: 7px 9px;
+  border: 1px solid #ff5277;
+  background: transparent;
+  color: #ff7996;
+  font: 700 8px "Orbitron", sans-serif;
+  cursor: pointer;
+}
+
+.kick-absent-button[hidden] {
+  display: none;
+}
+
+.kick-absent-button:hover {
+  background: #c92345;
+  color: #fff;
+}
