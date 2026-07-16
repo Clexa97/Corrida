@@ -1,9 +1,25 @@
 .race-stage {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 230px;
+  grid-template-columns: 230px minmax(0, 1fr) 230px;
   gap: 16px;
   align-items: stretch;
 }
+
+.race-stage > .race-chat {
+  width: auto;
+  min-width: 0;
+  min-height: 350px;
+  margin: 0;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+}
+
+.race-stage > .race-chat .chat-feed-wrap {flex:1}
+.race-stage > .race-chat .chat-feed {max-height:390px}
+.race-stage > .race-chat .race-chat-form {grid-template-columns:1fr 48px}
+.race-stage > .race-chat .chat-message-wrap {grid-column:1/-1}
+.race-stage > .race-chat .race-chat-form button {grid-column:1/-1}
 
 .race-roster {
   min-height: 350px;
@@ -22,6 +38,10 @@
 .race-roster-list {display:flex;flex-direction:column;gap:7px;margin-top:11px;max-height:500px;overflow-y:auto}
 .roster-pilot {display:grid;grid-template-columns:20px 34px minmax(0,1fr) 27px;gap:7px;align-items:center;padding:7px;border:1px solid #303a44;border-radius:8px;background:#111820;transition:.2s}
 .roster-pilot.is-current {border-color:#ffe600;box-shadow:inset 3px 0 #ffe600}
+.roster-pilot.is-finished {border-color:#38bdf8;background:#102635}
+.roster-pilot.is-champion {border-color:#ffe600;background:linear-gradient(90deg,#3b3108,#171b20);box-shadow:inset 4px 0 #ffe600,0 0 14px #ffe60044}
+.gift-event-card.is-finish {border-color:#ffe600;background:radial-gradient(circle at 50% 30%,#4a3c08,#12171d 62%);box-shadow:0 0 45px #ffe60055}
+.gift-event-card.is-finish .gift-event-icon {animation:finishCrown 1s ease-in-out infinite alternate;filter:drop-shadow(0 0 22px #ffe600)}
 .roster-pilot>span {color:#65717d;font:800 9px "Orbitron"}
 .roster-pilot img {width:34px;height:34px;border:2px solid #576470;border-radius:50%;object-fit:cover}
 .roster-pilot div {min-width:0}.roster-pilot strong,.roster-pilot small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.roster-pilot strong{font:700 8px "Orbitron"}.roster-pilot small{margin-top:3px;color:#87939f;font-size:7px}
@@ -36,5 +56,7 @@
 @keyframes turboRacer {0%{transform:scale(.82)}30%{transform:scale(1.32) rotate(8deg)}65%{transform:scale(1.08) rotate(-4deg)}100%{transform:scale(1)}}
 @keyframes turboSparks {from{opacity:1;transform:translateX(45px) scale(.4)}to{opacity:0;transform:translateX(-50px) scale(1.4)}}
 @keyframes turboFlame {from{transform:translateX(45px) scaleX(.25)}to{opacity:0;transform:translateX(-55px) scaleX(1.5)}}
+@keyframes finishCrown {to{transform:translateY(-8px) scale(1.12)}}
 
-@media(max-width:950px){.race-stage{grid-template-columns:1fr}.race-roster{min-height:0}.race-roster-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));max-height:none}}
+@media(max-width:1100px){.race-stage{grid-template-columns:1fr 220px}.race-stage>.race-chat{grid-column:1/-1;grid-row:2;min-height:0}.race-stage>.race-chat .chat-feed{max-height:150px}.race-stage>.race-chat .race-chat-form{grid-template-columns:130px 48px 1fr 42px}.race-stage>.race-chat .chat-message-wrap,.race-stage>.race-chat .race-chat-form button{grid-column:auto}}
+@media(max-width:760px){.race-stage{grid-template-columns:1fr}.race-roster{min-height:0}.race-roster-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));max-height:none}.race-stage>.race-chat{grid-column:auto;grid-row:auto}}

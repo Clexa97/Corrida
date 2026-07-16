@@ -86,6 +86,18 @@ export async function expirePendingItem(roomCode) {
   return data;
 }
 
+export async function leaveRoom(roomCode) {
+  const { data, error } = await supabase.rpc("leave_room", { p_room_code: roomCode });
+  if (error) throw error;
+  return data;
+}
+
+export async function enterRoom(roomCode) {
+  const { data, error } = await supabase.rpc("enter_room", { p_room_code: roomCode });
+  if (error) throw error;
+  return data;
+}
+
 export async function sendChatMessage(roomCode, playerId, message, emote) {
   const { data, error } = await supabase.rpc("send_chat_message", { p_room_code: roomCode, p_player_id: playerId, p_message: message, p_emote: emote });
   if (error) throw error;
