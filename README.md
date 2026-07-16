@@ -87,9 +87,11 @@ As tabelas não permitem que jogadores alterem diretamente pontos, turnos ou pre
 
 - Atualizar ou fechar a página mantém o corredor no banco.
 - Ao retornar no mesmo navegador, a sessão anônima é recuperada.
+- É possível entrar apenas como espectador, sem criar um corredor.
+- Corredores criados durante uma prova assistem a corrida atual e entram na próxima largada.
 - Clicar em **Sair da sala** remove explicitamente o próprio corredor.
 - O anfitrião pode remover participantes ou excluir a sala.
-- Quando o último corredor é removido, a sala é apagada automaticamente.
+- A presença é renovada enquanto a sala está aberta. Salas sem usuários conectados por mais de dois minutos são removidas pela rotina de limpeza.
 - Presentes ofensivos aparecem somente para seu proprietário; se ele não escolher um alvo em 60 segundos, o presente é perdido e o turno avança.
 - Após a escolha do alvo, todas as telas exibem uma animação sincronizada com os possíveis presentes e revelam o ataque aplicado.
 - A revelação pública mostra foto e nome do atacante e do corredor atingido.

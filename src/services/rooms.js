@@ -3,6 +3,7 @@ import { supabase } from "../lib/supabase.js";
 const roomSelect = "*, players!players_room_id_fkey(*)";
 
 export async function listRooms() {
+  await supabase.rpc("cleanup_abandoned_rooms");
   const { data, error } = await supabase
     .from("rooms")
     .select(roomSelect)
@@ -92,8 +93,19 @@ export async function leaveRoom(roomCode) {
   return data;
 }
 
-export async function enterRoom(roomCode) {
-  const { data, error } = await supabase.rpc("enter_room", { p_room_code: roomCode });
+export async function enterRoom(roomCode, spectatorOnly = false) {
+  const { data, error } = await supabase.rpc("enter_room", {
+    p_room_code: roomCode,
+    p_spectator_only: spectatorOnly
+  });
+  if (error) throw error;
+  return data;
+}
+
+export async function heartbeatRoom(roomCode) {
+  const { data, error } = await supabase.rpc("heartbeat_and_cleanup", {
+    p_room_code: roomCode
+  });
   if (error) throw error;
   return data;
 }
