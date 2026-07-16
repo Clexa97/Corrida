@@ -21,6 +21,14 @@
 .race-stage > .race-chat .chat-message-wrap {grid-column:1/-1}
 .race-stage > .race-chat .race-chat-form button {grid-column:1/-1}
 
+.track-shell {position:relative;min-width:0}
+.track-shell .oval-track {width:100%}
+.track-dice-control {position:absolute;inset:0;z-index:7;display:grid;place-items:center;pointer-events:none}
+.track-dice-control[hidden] {display:none}
+.track-dice-control .roll-button {width:min(250px,48%);margin-top:86px;pointer-events:auto;box-shadow:0 8px 28px #0008,0 0 24px #00e5ff33}
+.control-panel {grid-template-columns:minmax(0,1fr) auto}
+.last-roll {justify-self:end}
+
 .race-roster {
   min-height: 350px;
   padding: 14px;
@@ -53,6 +61,7 @@
 .roster-pilot.is-current {border-color:#ffe600;box-shadow:inset 3px 0 #ffe600}
 .roster-pilot.is-finished {border-color:#38bdf8;background:#102635}
 .roster-pilot.is-champion {border-color:#ffe600;background:linear-gradient(90deg,#3b3108,#171b20);box-shadow:inset 4px 0 #ffe600,0 0 14px #ffe60044}
+.roster-pilot.is-spectator {opacity:.76;border-style:dashed}
 .gift-event-card.is-finish {border-color:#ffe600;background:radial-gradient(circle at 50% 30%,#4a3c08,#12171d 62%);box-shadow:0 0 45px #ffe60055}
 .gift-event-card.is-finish .gift-event-icon {animation:finishCrown 1s ease-in-out infinite alternate;filter:drop-shadow(0 0 22px #ffe600)}
 .gift-event-participants.finish-participant {grid-template-columns:1fr}
@@ -74,5 +83,9 @@
 @keyframes turboFlame {from{transform:translateX(45px) scaleX(.25)}to{opacity:0;transform:translateX(-55px) scaleX(1.5)}}
 @keyframes finishCrown {to{transform:translateY(-8px) scale(1.12)}}
 
-@media(max-width:1100px){.race-stage{grid-template-columns:1fr 220px}.race-stage>.race-chat{grid-column:1/-1;grid-row:2;min-height:0}.race-stage>.race-chat .chat-feed{max-height:150px}.race-stage>.race-chat .race-chat-form{grid-template-columns:130px 48px 1fr 42px}.race-stage>.race-chat .chat-message-wrap,.race-stage>.race-chat .race-chat-form button{grid-column:auto}}
-@media(max-width:760px){.race-stage{grid-template-columns:1fr}.race-roster{min-height:0}.race-roster-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));max-height:none}.race-stage>.race-chat{grid-column:auto;grid-row:auto}}
+.chat-line strong {font-size:11px}
+.chat-line p {font-size:14px;line-height:1.4}
+.race-chat input,.race-chat select {font-size:14px}
+
+@media(max-width:1100px){.race-stage{grid-template-columns:1fr 220px}.race-stage>.race-chat{grid-column:1/-1;grid-row:2;min-height:320px}.race-stage>.race-chat .chat-feed{min-height:190px;max-height:240px}.race-stage>.race-chat .race-chat-form{grid-template-columns:130px 48px 1fr 42px}.race-stage>.race-chat .chat-message-wrap,.race-stage>.race-chat .race-chat-form button{grid-column:auto}}
+@media(max-width:760px){.race-stage{grid-template-columns:1fr;gap:14px}.race-roster{min-height:0}.race-roster-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));max-height:none}.race-stage>.race-chat{grid-column:auto;grid-row:auto;min-height:340px}.race-stage>.race-chat .chat-feed{min-height:210px;max-height:260px}.track-dice-control .roll-button{width:min(230px,68%);margin-top:70px}.control-panel{grid-template-columns:1fr}.last-roll{justify-self:stretch}}
