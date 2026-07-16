@@ -51,6 +51,9 @@
 .roster-pilot.is-champion {border-color:#ffe600;background:linear-gradient(90deg,#3b3108,#171b20);box-shadow:inset 4px 0 #ffe600,0 0 14px #ffe60044}
 .gift-event-card.is-finish {border-color:#ffe600;background:radial-gradient(circle at 50% 30%,#4a3c08,#12171d 62%);box-shadow:0 0 45px #ffe60055}
 .gift-event-card.is-finish .gift-event-icon {animation:finishCrown 1s ease-in-out infinite alternate;filter:drop-shadow(0 0 22px #ffe600)}
+.gift-event-participants.finish-participant {grid-template-columns:1fr}
+.gift-event-participants.finish-participant>span,.gift-event-participants.finish-participant>div:last-child {display:none}
+.gift-event-participants.finish-participant img {width:104px;height:104px;border-color:#ffe600;box-shadow:0 0 25px #ffe60088}
 .roster-pilot>span {color:#65717d;font:800 9px "Orbitron"}
 .roster-pilot img {width:34px;height:34px;border:2px solid #576470;border-radius:50%;object-fit:cover}
 .roster-pilot div {min-width:0}.roster-pilot strong,.roster-pilot small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.roster-pilot strong{font:700 8px "Orbitron"}.roster-pilot small{margin-top:3px;color:#87939f;font-size:7px}

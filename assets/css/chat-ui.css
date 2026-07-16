@@ -17,9 +17,9 @@
 .chat-line {display:flex;gap:7px;align-items:flex-start;animation:chatLineIn .2s ease}
 .chat-line img {width:28px;height:28px;flex:none;border:2px solid #53606c;border-radius:50%;object-fit:cover}
 .chat-line div {min-width:0;max-width:82%;padding:5px 8px;border-radius:2px 9px 9px 9px;background:#202a34}
-.chat-line strong {display:block;margin-bottom:2px;color:#ff7a45;font:700 8px "Orbitron",sans-serif;text-transform:uppercase}
-.chat-line p {margin:0;color:#f4f6f8;font-size:10px;line-height:1.3;overflow-wrap:anywhere}
-.chat-line p b {margin-right:4px;font-size:14px}
+.chat-line strong {display:block;margin-bottom:3px;color:#ff7a45;font:700 9px "Orbitron",sans-serif;text-transform:uppercase}
+.chat-line p {margin:0;color:#f4f6f8;font-size:12px;line-height:1.4;overflow-wrap:anywhere}
+.chat-line p b {margin-right:5px;font-size:16px}
 .race-chat-form {grid-template-columns:130px 58px 1fr 42px;gap:6px}
 .race-chat-form select,.race-chat-form input,.race-chat-form button {min-height:36px;border-radius:7px;padding:0 8px}
 .race-chat-form button {font-size:16px}
