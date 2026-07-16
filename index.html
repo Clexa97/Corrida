@@ -61,6 +61,8 @@
           <div class="lap-picker">
             <button type="button" data-step="-1">−</button><strong id="lapDisplay">3</strong><span>VOLTAS</span><button type="button" data-step="1">＋</button>
           </div>
+          <label for="maxPlayersPerUser">CORREDORES POR USUÁRIO</label>
+          <select id="maxPlayersPerUser" class="setup-select"><option value="1">1 corredor por usuário</option><option value="2">Até 2 corredores</option><option value="3">Até 3 corredores</option><option value="4">Até 4 corredores</option><option value="5">Até 5 corredores</option></select>
           <button class="primary-button" type="submit">CRIAR SALA <span>→</span></button>
         </form>
       </div>
@@ -109,6 +111,7 @@
       <div class="track-head"><span>PISTA OVAL</span><span>LINHA DE CHEGADA 🏁</span></div>
       <div id="raceTrack" class="race-track oval-track"></div>
       <div class="control-panel"><div class="turn-info"><small>VEZ DE</small><strong id="currentPilot">—</strong><span id="turnPermission" class="turn-permission"></span></div><button id="rollButton" class="roll-button"><span class="mini-die">20</span> ROLAR O D20</button><div class="last-roll"><small>ÚLTIMA ROLAGEM</small><strong id="lastRoll">—</strong></div></div>
+      <section class="race-chat" aria-label="Chat da corrida"><div class="race-chat-heading"><div><small>RÁDIO DA PISTA</small><strong>FALE PELO SEU CORREDOR</strong></div><span>Balões somem em 20s</span></div><form id="chatForm" class="race-chat-form"><select id="chatPilot" aria-label="Corredor que vai falar" required></select><select id="chatEmote" aria-label="Emote"><option value="none">Sem emote</option><option value="wave">👋 Oi</option><option value="laugh">😂 Risada</option><option value="fire">🔥 Fogo</option><option value="wow">😮 Uau</option><option value="gg">🏁 GG</option></select><div class="chat-message-wrap"><input id="chatMessage" maxlength="120" placeholder="Mensagem para a pista..." required><span id="chatCharCount">0/120</span></div><button type="submit">ENVIAR</button></form><p id="chatUnavailable" class="chat-unavailable" hidden>Crie um corredor para usar o rádio da pista.</p></section>
     </section>
   </main>
 

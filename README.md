@@ -28,7 +28,8 @@ Sem um `.env` válido, o jogo inicia automaticamente no modo local usando `local
 1. Crie um projeto em [supabase.com](https://supabase.com).
 2. Em **Authentication → Providers**, habilite **Anonymous Sign-Ins**.
 3. Abra o **SQL Editor**.
-4. Execute todo o arquivo `supabase/migrations/202607160001_initial_schema.sql`.
+4. Em um projeto novo, execute todo o arquivo `supabase/migrations/202607160001_initial_schema.sql`.
+5. Se o banco já estava configurado, execute somente as novas migrações, em ordem. Para habilitar múltiplos corredores e o chat, execute `supabase/migrations/202607160004_multi_players_and_chat.sql`.
 5. Em **Project Settings → API** ou **Connect**, copie a URL do projeto e a chave pública/publishable.
 6. Crie um arquivo `.env`:
 

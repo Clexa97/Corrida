@@ -8,6 +8,7 @@ create table public.rooms (
   name text not null check (char_length(name) between 1 and 36),
   owner_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
   laps smallint not null check (laps between 1 and 12),
+  max_players_per_user smallint not null default 1 check (max_players_per_user between 1 and 5),
   status public.room_status not null default 'lobby',
   current_player_id uuid,
   pending_item jsonb,
@@ -26,7 +27,6 @@ create table public.players (
   score integer not null default 0 check (score >= 0),
   roll_count integer not null default 0 check (roll_count >= 0),
   joined_at timestamptz not null default now(),
-  unique (room_id, owner_id),
   unique (room_id, codename)
 );
 
@@ -45,12 +45,25 @@ create table public.claimed_gifts (
   unique (player_id, lap, marker)
 );
 
+create table public.chat_messages (
+  id uuid primary key default gen_random_uuid(),
+  room_id uuid not null references public.rooms(id) on delete cascade,
+  player_id uuid not null references public.players(id) on delete cascade,
+  owner_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
+  message text not null check (char_length(message) between 1 and 120),
+  emote text not null default 'none' check (emote in ('none','wave','laugh','fire','wow','gg')),
+  created_at timestamptz not null default now(),
+  expires_at timestamptz not null default (now() + interval '20 seconds')
+);
+
 create index players_room_id_idx on public.players(room_id);
 create index claimed_gifts_room_id_idx on public.claimed_gifts(room_id);
+create index chat_messages_room_id_idx on public.chat_messages(room_id, created_at desc);
 
 alter table public.rooms enable row level security;
 alter table public.players enable row level security;
 alter table public.claimed_gifts enable row level security;
+alter table public.chat_messages enable row level security;
 
 create policy "authenticated users can view rooms"
 on public.rooms for select to authenticated using (true);
@@ -74,6 +87,12 @@ with check (
     select 1 from public.rooms r
     where r.id = room_id and r.status = 'lobby'
   )
+  and (
+    select count(*) from public.players existing
+    where existing.room_id = players.room_id and existing.owner_id = (select auth.uid())
+  ) < (
+    select r.max_players_per_user from public.rooms r where r.id = players.room_id
+  )
 );
 
 create policy "player owner or room owner can delete player"
@@ -88,6 +107,12 @@ using (
 
 create policy "authenticated users can view claimed gifts"
 on public.claimed_gifts for select to authenticated using (true);
+
+create policy "room participants can view chat"
+on public.chat_messages for select to authenticated using (
+  exists (select 1 from public.players p where p.room_id = chat_messages.room_id and p.owner_id = (select auth.uid()))
+  or exists (select 1 from public.rooms r where r.id = chat_messages.room_id and r.owner_id = (select auth.uid()))
+);
 
 -- Não há políticas públicas de UPDATE para players nem INSERT em claimed_gifts.
 -- Pontos, turnos e itens só podem mudar pelas funções SECURITY DEFINER abaixo.
@@ -271,6 +296,40 @@ revoke all on function public.expire_pending_item(text) from public, anon;
 grant execute on function public.start_race(text) to authenticated;
 grant execute on function public.roll_d20(text) to authenticated;
 grant execute on function public.use_pending_item(text, uuid) to authenticated;
+
+create or replace function public.send_chat_message(
+  p_room_code text, p_player_id uuid, p_message text, p_emote text default 'none'
+)
+returns public.chat_messages
+language plpgsql security definer set search_path = '' as $$
+declare
+  v_room public.rooms;
+  v_player public.players;
+  v_message text := btrim(p_message);
+  v_result public.chat_messages;
+begin
+  select * into v_room from public.rooms where code = upper(p_room_code);
+  if v_room.id is null then raise exception 'Sala não encontrada'; end if;
+  select * into v_player from public.players where id = p_player_id and room_id = v_room.id;
+  if v_player.id is null or v_player.owner_id <> auth.uid() then
+    raise exception 'Você só pode falar por um corredor seu';
+  end if;
+  if char_length(v_message) not between 1 and 120 then
+    raise exception 'A mensagem deve ter entre 1 e 120 caracteres';
+  end if;
+  if coalesce(p_emote, 'none') not in ('none','wave','laugh','fire','wow','gg') then
+    raise exception 'Emote inválido';
+  end if;
+  delete from public.chat_messages where room_id = v_room.id and expires_at <= now();
+  insert into public.chat_messages(room_id, player_id, owner_id, message, emote)
+    values(v_room.id, v_player.id, auth.uid(), v_message, coalesce(p_emote, 'none'))
+    returning * into v_result;
+  return v_result;
+end;
+$$;
+
+revoke all on function public.send_chat_message(text, uuid, text, text) from public, anon;
+grant execute on function public.send_chat_message(text, uuid, text, text) to authenticated;
 grant execute on function public.expire_pending_item(text) to authenticated;
 
 create or replace function public.delete_empty_room_after_player_leave()
@@ -333,3 +392,4 @@ using (bucket_id = 'avatars' and owner_id = (select auth.uid())::text);
 
 alter publication supabase_realtime add table public.rooms;
 alter publication supabase_realtime add table public.players;
+alter publication supabase_realtime add table public.chat_messages;

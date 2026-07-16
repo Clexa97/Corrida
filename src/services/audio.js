@@ -67,6 +67,11 @@ export function playVictory() {
   [392, 523, 659, 784, 1046].forEach((frequency, index) => tone(frequency, .28, "square", .035, index * .11));
 }
 
+export function playChatBubble() {
+  tone(620, .08, "sine", .018);
+  tone(840, .11, "sine", .015, .065);
+}
+
 export function toggleAudio() {
   muted = !muted;
   if (!muted) unlockAudio();
