@@ -7,7 +7,8 @@ export async function listRooms() {
   const { data, error } = await supabase
     .from("rooms")
     .select(roomSelect)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .limit(30);
   if (error) throw error;
   return data;
 }
@@ -132,7 +133,6 @@ export function subscribeToRoom(roomId, onChange) {
   const channel = supabase
     .channel(`room:${roomId}`)
     .on("postgres_changes", { event: "*", schema: "public", table: "rooms", filter: `id=eq.${roomId}` }, onChange)
-    .on("postgres_changes", { event: "*", schema: "public", table: "players", filter: `room_id=eq.${roomId}` }, onChange)
     .on("postgres_changes", { event: "INSERT", schema: "public", table: "chat_messages", filter: `room_id=eq.${roomId}` }, onChange)
     .subscribe();
   return () => supabase.removeChannel(channel);
