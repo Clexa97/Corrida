@@ -1,6 +1,6 @@
 import { supabase } from "../lib/supabase.js";
 
-const roomSelect = "*, players!players_room_id_fkey(*)";
+const roomSelect = "*, players!players_room_id_fkey(*), claimed_gifts(*)";
 
 export async function listRooms() {
   await supabase.rpc("cleanup_abandoned_rooms");

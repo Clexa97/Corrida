@@ -1,6 +1,6 @@
 .race-stage {
   display: grid;
-  grid-template-columns: 230px minmax(0, 1fr) 230px;
+  grid-template-columns: 290px minmax(0, 1fr) 230px;
   gap: 16px;
   align-items: stretch;
 }
@@ -20,6 +20,7 @@
 .race-stage > .race-chat .race-chat-form {grid-template-columns:1fr 48px}
 .race-stage > .race-chat .chat-message-wrap {grid-column:1/-1}
 .race-stage > .race-chat .race-chat-form button {grid-column:1/-1}
+.track-marker.is-consumed{opacity:0;pointer-events:none;transform:translate(-50%,-50%) scale(.6);transition:opacity .25s,transform .25s}
 
 
 .race-roster {
